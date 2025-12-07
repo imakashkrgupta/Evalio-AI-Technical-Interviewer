@@ -225,13 +225,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **TailwindCSS** for responsive design
 - **OpenCV** for computer vision capabilities
 
-## 📞 Support
-
-For support and questions:
-- Email: support@evalio.com
-- Issues: [GitHub Issues](https://github.com/yourusername/evalio/issues)
-- Documentation: See [info.txt](info.txt) for detailed project information
-
 ---
 
 <div align="center">
