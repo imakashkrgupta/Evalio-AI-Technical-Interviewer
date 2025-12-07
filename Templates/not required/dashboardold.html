@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stunning User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366F1',
+                        secondary: '#8B5CF6',
+                        accent: '#EC4899',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-br from-primary via-secondary to-accent min-h-screen p-8 text-white">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-6xl font-extrabold text-center mb-12 animate-pulse">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500">
+                HR Dashboard
+            </span>
+        </h1>
+
+        <div class="mb-8 relative">
+            <input type="text" id="searchInput" placeholder="Search users..."
+                class="w-full px-6 py-4 rounded-full bg-white/20 backdrop-blur-xl border-2 border-white/50 focus:outline-none focus:border-white placeholder-white/70 text-white text-lg shadow-lg">
+            <i class="fas fa-search absolute right-6 top-1/2 transform -translate-y-1/2 text-white/70 text-xl"></i>
+        </div>
+
+        <div class="mb-8 flex flex-wrap gap-4 justify-center">
+            <button
+                class="filter-btn bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg backdrop-blur-md"
+                data-filter="All">All</button>
+            <button
+                class="filter-btn bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg backdrop-blur-md"
+                data-filter="Fresher">Fresher</button>
+            <button
+                class="filter-btn bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg backdrop-blur-md"
+                data-filter="Mid-Senior">Mid-Senior</button>
+            <button
+                class="filter-btn bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg backdrop-blur-md"
+                data-filter="Senior">Senior</button>
+        </div>
+
+
+
+
+        <!-- -------------------------EXCEL SHEET FORM--------------------- -->
+        <div class="excel_sheet_form_wrap" style="border: 1px solid white;">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="">Excel sheet of candidates:</label><br>
+                <input type="file" name="file" id="" accept=".xlsx, .xls" required><br><br>
+                <button type="submit" style="background-color: white; color: black;">submit</button>
+            </form>
+        </div>
+        <!-- ----------------------EXCEL SHEET FORM (Finish)------------------ -->
+        <div id="userCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- User cards will be dynamically inserted here -->
+            <!-- Example of a User Card -->
+            {% for candidate in allcandidates %}
+            <div
+                class="bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-2xl hover:scale-105 opacity-0 transform translate-y-8">
+                <div class="p-8 relative overflow-hidden">
+                    <!-- Background Gradient -->
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400 to-teal-500 opacity-50 rounded-bl-full">
+                    </div>
+
+                    <!-- User Info Section -->
+                    <div class="flex items-center mb-6 relative z-10">
+                        <div
+                            class="w-20 h-20 rounded-2xl bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center text-3xl font-bold mr-6 shadow-lg">
+                            {{ candidate.name|slice:":1" }}
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-extrabold mb-1">{{ candidate.name }}</h2>
+                            <p class="text-white/80 text-lg">{{ candidate.email }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Role Section -->
+                    <p class="text-xl mb-4 relative z-10">Role: {{ candidate.jobRole }}</p>
+
+                    <!-- Level Badge -->
+                    <span
+                        class="px-6 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-green-400 to-teal-500 shadow-lg relative z-10">
+                        {{ candidate.experience }}
+                    </span>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-8 flex justify-between items-center relative z-10">
+                        <button
+                            class="bg-white/30 hover:bg-white/40 text-white px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center shadow-lg backdrop-blur-md">
+                            <i class="fas fa-paper-plane mr-2"></i>Send Invite
+                        </button>
+                        <button
+                            class="bg-white/30 hover:bg-white/40 text-white px-6 p-3 rounded-xl transition-all duration-300 transform hover:scale-110 hover:rotate-12 shadow-lg backdrop-blur-md">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!------------------------ User cards end here -------------------->
+        </div>
+    </div>
+
+    <script>
+        // const mockUsers = [
+        //     { name: "John Doe", roll_no: "12345", role: "Developer", level: "Fresher" },
+        //     { name: "Jane Smith", roll_no: "67890", role: "Designer", level: "Mid-Senior" },
+        //     { name: "Alice Johnson", roll_no: "24680", role: "Manager", level: "Senior" },
+        //     { name: "Bob Williams", roll_no: "13579", role: "Tester", level: "Fresher" },
+        //     { name: "Charlie Brown", roll_no: "11223", role: "Developer", level: "Mid-Senior" },
+        //     { name: "Diana Prince", roll_no: "33445", role: "Designer", level: "Senior" }
+        // ];
+
+        // function getLevelClass(level) {
+        //     switch (level.toLowerCase()) {
+        //         case 'fresher':
+        //             return 'from-green-400 to-teal-500';
+        //         case 'mid-senior':
+        //             return 'from-yellow-400 to-orange-500';
+        //         case 'senior':
+        //             return 'from-red-400 to-pink-500';
+        //         default:
+        //             return 'from-gray-400 to-gray-600';
+        //     }
+        // }
+
+        // function createUserCard(user, index) {
+        //     const card = document.createElement('div');
+        //     card.className = 'bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-2xl hover:scale-105 opacity-0 transform translate-y-8';
+        //     card.style.animationDelay = `${index * 150}ms`;
+        //     card.innerHTML = `
+        //         <div class="p-8 relative overflow-hidden">
+        //             <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${getLevelClass(user.level)} opacity-50 rounded-bl-full"></div>
+        //             <div class="flex items-center mb-6 relative z-10">
+        //                 <div class="w-20 h-20 rounded-2xl bg-gradient-to-br ${getLevelClass(user.level)} flex items-center justify-center text-3xl font-bold mr-6 shadow-lg">
+        //                     ${user.name.charAt(0)}
+        //                 </div>
+        //                 <div>
+        //                     <h2 class="text-3xl font-extrabold mb-1">${user.name}</h2>
+        //                     <p class="text-white/80 text-lg">Roll No: ${user.roll_no}</p>
+        //                 </div>
+        //             </div>
+        //             <p class="text-xl mb-4 relative z-10">Role: ${user.role}</p>
+        //             <span class="px-6 py-2 rounded-full text-sm font-semibold bg-gradient-to-r ${getLevelClass(user.level)} shadow-lg relative z-10">
+        //                 ${user.level}
+        //             </span>
+        //             <div class="mt-8 flex justify-between items-center relative z-10">
+        //                 <button class="bg-white/30 hover:bg-white/40 text-white px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center shadow-lg backdrop-blur-md">
+        //                     <i class="fas fa-paper-plane mr-2"></i>Send Invite
+        //                 </button>
+        //                 <button class="bg-white/30 hover:bg-white/40 text-white px-6 p-3 rounded-xl transition-all duration-300 transform hover:scale-110 hover:rotate-12 shadow-lg backdrop-blur-md">
+        //                     <i class="fas fa-arrow-right"></i>
+        //                 </button>
+        //             </div>
+        //         </div>
+        //     `;
+        //     return card;
+        // }
+
+        // function renderUsers(users) {
+        //     const userCards = document.getElementById('userCards');
+        //     userCards.innerHTML = '';
+        //     users.forEach((user, index) => {
+        //         const card = createUserCard(user, index);
+        //         userCards.appendChild(card);
+        //         setTimeout(() => {
+        //             card.style.opacity = '1';
+        //             card.style.transform = 'translateY(0)';
+        //         }, index * 150);
+        //     });
+        // }
+
+        // function setupSearch() {
+        //     const searchInput = document.getElementById('searchInput');
+        //     searchInput.addEventListener('input', filterUsers);
+        // }
+
+        // function setupFilters() {
+        //     const filterButtons = document.querySelectorAll('.filter-btn');
+        //     filterButtons.forEach(button => {
+        //         button.addEventListener('click', (e) => {
+        //             filterButtons.forEach(btn => btn.classList.remove('bg-white/40', 'text-primary'));
+        //             e.target.classList.add('bg-white/40', 'text-primary');
+        //             filterUsers();
+        //         });
+        //     });
+        // }
+
+        // function filterUsers() {
+        //     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        //     const activeFilter = document.querySelector('.filter-btn.bg-white/40').dataset.filter;
+
+        //     const filteredUsers = mockUsers.filter(user => {
+        //         const matchesSearch = user.name.toLowerCase().includes(searchTerm) ||
+        //             user.roll_no.includes(searchTerm) ||
+        //             user.role.toLowerCase().includes(searchTerm) ||
+        //             user.level.toLowerCase().includes(searchTerm);
+
+        //         const matchesFilter = activeFilter === 'All' || user.level === activeFilter;
+
+        //         return matchesSearch && matchesFilter;
+        //     });
+
+        //     renderUsers(filteredUsers);
+        // }
+
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     renderUsers(mockUsers);
+        //     setupSearch();
+        //     setupFilters();
+        //     document.querySelector('.filter-btn[data-filter="All"]').classList.add('bg-white/40', 'text-primary');
+        // });
+    </script>
+
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #userCards>div {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+</body>
+
+</html>

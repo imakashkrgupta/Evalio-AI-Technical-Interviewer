@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: radial-gradient(circle, rgb(34, 16, 55), rgb(3, 1, 5));
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0;
+        overflow: auto;
+        font-family: "Inter", serif;
+        color: #fff;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .btn {
+        font-weight: 600;
+        cursor: pointer;
+        color: white;
+        display: flex;
+        width: 6.8125rem;
+        height: 2.875rem;
+        padding: 0.125rem 0.9375rem;
+        justify-content: center;
+        align-items: center;
+        gap: 0.625rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.297);
+        background: rgba(98, 42, 154, 0.887);
+        box-shadow: 0px 0px 6px 3px rgba(255, 255, 255, 0.406) inset;
+        backdrop-filter: blur(14px);
+      }
+      .txt-custom {
+        color: #9e29d0;
+      }
+    </style>
+  </head>
+
+  <body class="flex justify-center items-center h-screen p-2">
+    <div
+      id="otp-verification"
+      class="glass flex flex-col items-center justify-around w-72   rounded-lg shadow-xl   p-5"
+      
+      style="box-shadow: 0 0 25px 10px rgba(126, 38, 163, 0.9);">
+  
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="title text-xl font-bold">OTP</div>
+        <div class="title">Verification Code</div>
+        <p class="message text-sm mt-2 text-center">
+          We have sent a verification code to your email ID
+        </p>
+        <div class="inputs m-4 flex justify-center item-center gap-2">
+          <input
+            name="otp_a"
+            id="input1"
+            type="text"
+            maxlength="1"
+            class="glass w-8 h-8 text-center outline-none"
+            oninput="moveToNextInput(this, 'input2')"
+            required
+          />
+          <input
+            name="otp_b"
+            id="input2"
+            type="text"
+            maxlength="1"
+            class="glass w-8 h-8 text-center outline-none"
+            oninput="moveToNextInput(this, 'input3')"
+            required
+          />
+          <input
+            name="otp_c"
+            id="input3"
+            type="text"
+            maxlength="1"
+            class="glass w-8 h-8 text-center outline-none"
+            oninput="moveToNextInput(this, 'input4')"
+            required
+          />
+          <input
+            name="otp_d"
+            id="input4"
+            type="text"
+            maxlength="1"
+            class="glass w-8 h-8 text-center outline-none"
+            oninput="checkOtpInputs()"
+            required
+          />
+        </div>
+
+        <div class="mt-4 flex justify-center item-center">
+          <button type="submit" id="verify-button" class="btn hidden">
+            <span>Join Now</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function moveToNextInput(currentInput, nextInputId) {
+        if (currentInput.value.length === 1) {
+          document.getElementById(nextInputId).focus();
+        }
+      }
+
+      function checkOtpInputs() {
+        const input1 = document.getElementById("input1").value;
+        const input2 = document.getElementById("input2").value;
+        const input3 = document.getElementById("input3").value;
+        const input4 = document.getElementById("input4").value;
+
+        if (input1 && input2 && input3 && input4) {
+          document.getElementById("verify-button").classList.remove("hidden");
+        } else {
+          document.getElementById("verify-button").classList.add("hidden");
+        }
+      }
+    </script>
+  </body>
+</html>

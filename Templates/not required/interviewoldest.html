@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!--  mic Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    @layer utilities {
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+      }
+    }
+
+    body {
+      background-image: url("https://cdn.pixabay.com/photo/2022/06/12/22/48/gradient-7258997_1280.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+     /* Define the body with the gradient animation */
+    
+     /* body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(45deg, #3a1c71, #d76d77, #ffaf7b, #6a11cb);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    } */
+
+/* body {
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(circle, #ff7e5f 20%, transparent 20%),
+              radial-gradient(circle, #feb47b 20%, transparent 20%),
+              radial-gradient(circle, #6a11cb 20%, transparent 20%),
+              radial-gradient(circle, #2575fc 20%, transparent 20%);
+  background-position: 0% 0%, 50% 50%, 100% 100%, 30% 80%;
+  background-size: 200% 200%, 150% 150%, 300% 300%, 250% 250%;
+  animation: amoebaAnimation 10s ease-in-out infinite;
+}
+
+@keyframes amoebaAnimation {
+  0% {
+    background-position: 0% 0%, 50% 50%, 100% 100%, 30% 80%;
+  }
+  25% {
+    background-position: 60% 60%, 20% 20%, 80% 80%, 40% 40%;
+  }
+  50% {
+    background-position: 100% 100%, 60% 60%, 0% 0%, 70% 70%;
+  }
+  75% {
+    background-position: 40% 40%, 70% 70%, 20% 20%, 90% 90%;
+  }
+  100% {
+    background-position: 0% 0%, 50% 50%, 100% 100%, 30% 80%;
+  }
+} */
+
+    video {
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body class="bg-transparent min-h-screen flex flex-col">
+  <!-- Main Container -->
+  <div class="flex-1 container mx-auto pt-4 flex flex-col space-y-4 text-sm md:text-base">
+    <!-- Text Section -->
+    <div class="messages no-scrollbar flex-1 overflow-y-auto p-4 max-h-[26rem] md:max-h-[27rem]" id="messagesContainer">
+      <!-- Chat messages -->
+      <!-- <div class="welcome-text bg-gray-100 p-4 rounded-lg shadow-md mb-2 w-fit font-semibold">
+        <p class="text-left text-gray-700">
+          Hi Rana, welcome, I’m Braintrust AIR, and I’ll be conducting your
+          interview for the Senior Frontend Engineer role at Reddit.
+        </p>
+      </div>
+
+      <div class="ai-text bg-blue-100 p-4 rounded-lg shadow-md mb-2 w-fit ml-auto">
+        <p class="text-left text-gray-700">
+          AI text: Please share a little about your background. Hi Rana,
+          welcome, I’m Braintrust AIR, and I’ll be conducting your interview
+
+        </p>
+      </div> -->
+      <!-- More text elements here... -->
+      <!--<div class="ai-text bg-blue-100 p-4 rounded-lg shadow-md mb-2 w-fit ml-auto">
+        <p class="text-left text-gray-700">
+          AI text: Please share a little about your background. Hi Rana,
+          welcome, I’m Braintrust AIR, and I’ll be conducting your interview
+
+        </p>
+      </div>
+      <div class="ai-text bg-blue-100 p-4 rounded-lg shadow-md mb-2 w-fit ml-auto">
+        <p class="text-left text-gray-700">
+          AI text: Please share a little about your background. Hi Rana,
+          welcome, I’m Braintrust AIR, and I’ll be conducting your interview
+
+        </p>
+      </div>
+      <div class="ai-text bg-blue-100 p-4 rounded-lg shadow-md mb-2 w-fit ml-auto">
+        <p class="text-left text-gray-700">
+          AI text: Please share a little about your background. Hi Rana,
+          welcome, I’m Braintrust AIR, and I’ll be conducting your interview
+
+        </p>
+      </div>
+      <div class="ai-text bg-blue-100 p-4 rounded-lg shadow-md mb-2 w-fit ml-auto">
+        <p class="text-left text-gray-700">
+          AI text: Please share a little about your background. Hi Rana,
+          welcome, I’m Braintrust AIR, and I’ll be conducting your interview
+
+        </p>
+      </div>
+      <div class="ai-text bg-blue-100 p-4 rounded-lg shadow-md mb-2 w-fit ml-auto">
+        <p class="text-left text-gray-700">
+          AI text: Please share a little about your background. Hi Rana,
+          welcome, I’m Braintrust AIR, and I’ll be conducting your interview
+
+        </p>
+      </div>
+      <div class="ai-text bg-blue-100 p-4 rounded-lg shadow-md mb-2 w-fit ml-auto">
+        <p class="text-left text-gray-700">
+          AI text: Please share a little about your background. Hi Rana,
+          welcome, I’m Braintrust AIR, and I’ll be conducting your interview
+
+        </p>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Camera Section (Responsive) -->
+  <div class="relative w-full h-32 flex items-center justify-between">
+    <!-- Image -->
+    <div
+      class="bg-white absolute right-20 w-28 h-28 flex items-center justify-center rounded-full shadow-md hidden sm:block" style="display:flex; align-items: center; justify-content: center; background-color: aliceblue; border: 5px solid rgb(197, 211, 255); font-size: 30px; color: royalblue; font-weight: bolder;">
+      <span class="text-center">AI</span>
+    </div>
+
+    <!-- Video -->
+    <video id="videoElement" class="absolute left-20 w-[200px] h-full rounded-lg shadow-md" autoplay></video>
+  </div>
+
+  <!-- Footer Section (Always at the bottom) -->
+  <div
+    class="footer bg-white/20 backdrop-blur-lg border border-white/30 shadow-2xl rounded-xl text-white py-4 w-[95%] md:w-[90%] flex justify-between items-center px-6 md:px-14 mt-4 mx-auto mb-8"
+    style="box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2)">
+    <div class="info">
+      <span class="text-sm md:text-lg font-bold text-black">Evalio</span>
+    </div>
+
+    <!-- Middle Mic Icon -->
+    <div class="mic-icon flex justify-center cursor-pointer" onclick="speechrecog()">
+      <!-- Default Mic Off Icon -->
+      <i id="micIcon" class="fa-solid fa-microphone-slash text-red-600 text-2xl"></i>
+    </div>
+
+    <a href="/interview/feedback/"><button
+      class="leave-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded text-xs md:text-base">
+      Leave interview
+    </button></a>
+  </div>
+
+  <script>
+    // Camera access code
+    const videoElement = document.getElementById("videoElement");
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then(function (stream) {
+          videoElement.srcObject = stream;
+        })
+        .catch(function (error) {
+          console.log("Something went wrong accessing the camera!");
+        });
+    }
+
+    // Toggle mic icon
+    // function toggleMic() {
+      // const micIcon = document.getElementById("micIcon");
+      // const micText = document.getElementById("micText");
+
+    //   if (micIcon.classList.contains("fa-microphone-slash")) {
+    //     // Change to dots icon (mic on)
+        // micIcon.classList.remove("fa-microphone-slash", "text-red-600");
+        // micIcon.classList.add(
+        //   "bx",
+        //   "bx-dots-horizontal-rounded",
+        //   "bx-flashing",
+        //   "text-blue-600",
+        //   "text-4xl"
+        // );
+        // micText.textContent = "Mic on";
+    //   } else {
+    //     // Change back to mic off icon
+        // micIcon.classList.remove(
+        //   "bx",
+        //   "bx-dots-horizontal-rounded",
+        //   "bx-flashing",
+        //   "text-blue-600",
+        //   "text-4xl"
+        // );
+        // micIcon.classList.add(
+        //   "fa-solid",
+        //   "fa-microphone-slash",
+        //   "text-red-600",
+        //   "text-2xl"
+        // );
+        // micText.textContent = "Open mic";
+    //   }
+    // }
+  </script>
+  <script>
+    /*---------------------SPEECH RECOG.--------------------------*/
+    /*************************************************/
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        // console.log("Cookies available: ", document.cookie); // Log all cookies
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                // console.log("Found cookie: ", cookieValue); // Log the found cookie value
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+    // ************************************************************************
+    function speak(aiSpeech) {
+            // Create a new SpeechSynthesisUtterance instance
+            const utterance = new SpeechSynthesisUtterance(aiSpeech);
+
+            // Optional: Set properties for the speech
+            utterance.lang = 'en-US'; // Language
+            utterance.pitch = 1.2;       // Pitch (0 to 2)
+            utterance.rate = 1;        // Rate (0.1 to 10)
+
+            // Speak the text
+            window.speechSynthesis.speak(utterance);
+        }
+    //*************************************************************************
+    function speechrecog() {
+      const micIcon = document.getElementById("micIcon");
+      const micText = document.getElementById("micText");
+    
+      console.log("yep listening...");
+      let recognization = new webkitSpeechRecognition();
+    
+      recognization.onstart = () => {
+        console.log("Started Listening");
+        micIcon.classList.remove("fa-microphone-slash", "text-red-600");
+        micIcon.classList.add(
+          "bx",
+          "bx-dots-horizontal-rounded",
+          "bx-flashing",
+          "text-blue-600",
+          "text-4xl"
+        );
+        micText.textContent = "Mic on";
+      };
+    
+      recognization.onresult = (e) => {
+        var transcript = e.results[0][0].transcript;
+        console.log("Transcript: " + transcript);
+    
+        const csrftoken = getCookie('csrftoken');
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/tool/', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+    
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            console.log("response: ", JSON.stringify(response, null, 2));
+    
+            // Update chat with previous transcripts
+            const messagesContainer = document.getElementById("messagesContainer");
+            messagesContainer.innerHTML = ''; // Clear existing messages
+    
+            // Loop through all transcripts and responses from the server
+            response.transcripts.forEach((item) => {
+              // Append each transcript and response
+              const userMessage = document.createElement("div");
+              userMessage.classList.add("bg-gray-100", "p-4", "rounded-lg", "shadow-md", "mb-2", "w-fit", "font-semibold");
+              userMessage.innerHTML = `<p class="text-left text-gray-700">You: ${item.transcript}</p>`;
+              messagesContainer.appendChild(userMessage);
+    
+              const aiMessage = document.createElement("div");
+              aiMessage.classList.add("bg-blue-100", "p-4", "rounded-lg", "shadow-md", "mb-2", "w-fit", "ml-auto");
+              aiMessage.innerHTML = `<p class="text-left text-gray-700">AI: ${item.response}</p>`;
+              console.log("Ai Message Transcript:-> "+item.response);
+              messagesContainer.appendChild(aiMessage);
+              console.log("Ai Message:-> "+aiMessage);
+              lastAiResponse = item.response; // Update lastAiResponse with the current AI response
+            });
+            // After the loop, lastAiResponse will hold the last AI response
+            console.log("Last AI Response: ", lastAiResponse);
+            //Calling the Speech Function for Ai Transcript
+            speak(lastAiResponse);
+
+            // Scroll to the bottom of the messages container
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          } else {
+            console.log("Error: " + xhr.statusText);
+          }
+        };
+    
+        xhr.send(JSON.stringify({ transcript: transcript }));
+      };
+    
+      recognization.onend = function () {
+        console.log('Speech recognition service disconnected');
+        micIcon.classList.remove(
+          "bx",
+          "bx-dots-horizontal-rounded",
+          "bx-flashing",
+          "text-blue-600",
+          "text-4xl"
+        );
+        micIcon.classList.add(
+          "fa-solid",
+          "fa-microphone-slash",
+          "text-red-600",
+          "text-2xl"
+        );
+        micText.textContent = "Open mic";
+      };
+    
+      recognization.start();
+    }
+    
+    /*-----------------------------------------------------------------------*/
+  </script>
+  <script type="text/javascript">
+    const csrftoken = '{{ csrf_token }}'; // This will set the CSRF token
+    document.cookie = "csrftoken=" + csrftoken; // Optional: Set it manually
+</script>
+
+</body>
+
+</html>

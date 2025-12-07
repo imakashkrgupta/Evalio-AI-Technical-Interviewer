@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Video Call UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+      body {
+        /* background: radial-gradient(circle, rgb(34, 16, 55), rgb(3, 1, 5)); */
+        background: radial-gradient(circle, rgb(34, 16, 55), rgb(3, 1, 5));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        overflow: auto;
+        font-family: "Inter", serif;
+        color: #fff;
+      }
+
+      .btn {
+        font-weight: 600;
+        cursor: pointer;
+        color: #fff;
+        display: flex;
+        width: 10.8125rem;
+        height: 2.875rem;
+        padding: 0.125rem 0.9375rem;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.297);
+        background: rgba(98, 42, 154, 0.887);
+        box-shadow: 0px 0px 6px 3px rgba(255, 255, 255, 0.406) inset;
+        backdrop-filter: blur(14px);
+      }
+
+      .txt-custom {
+        color: #9e29d0;
+      }
+
+      .align-middle {
+        display: flex;
+        align-items: center;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen flex items-center justify-center p-4">
+    <div id="mainContainer" class="max-w-6xl w-full opacity-0">
+      <div class="p-8 flex flex-col lg:flex-row gap-8">
+        <div class="w-full lg:w-2/3 relative">
+          <div class="lg:h-[360px] lg:w-[640px] mx-auto">
+            <video
+              id="videoElement"
+              class="w-full h-full object-cover rounded-lg shadow-md border-2 border-white"
+              autoplay
+              playsinline
+            ></video>
+            <div
+              id="videoOverlay"
+              class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg opacity-0"
+            >
+              <i class="fas fa-spinner fa-spin text-white text-6xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/3 flex flex-col justify-between">
+          <div
+            id="statusIndicators"
+            class="glass space-y-2 flex gap-3 sm:gap-5 justify-center items-center rounded-lg p-4 text-xs sm:text-base"
+          >
+            <div
+              id="cameraStatus"
+              class="flex items-center space-x-2 align-middle"
+              style="margin-top: 10px"
+            >
+              <i class="fas fa-video"></i>
+              <span class="inline align-middle">Checking...</span>
+            </div>
+            <div
+              id="micStatus"
+              class="flex items-center space-x-2 align-middle"
+            >
+              <i class="fas fa-microphone"></i>
+              <span class="inline align-middle">Checking...</span>
+            </div>
+            <div
+              id="internetStatus"
+              class="flex items-center space-x-2 align-middle"
+            >
+              <i class="fas fa-wifi"></i>
+              <span class="inline align-middle">Checking...</span>
+            </div>
+          </div>
+          <div
+            id="userInfo"
+            class="glass mt-4 space-y-4 opacity-0 rounded-lg p-4"
+          >
+            <h2 id="userName" class="txt-custom text-3xl font-bold"></h2>
+            <p id="userRoll" class="text-lg sm:text-xl"></p>
+            <p id="userJobRole" class="text-lg sm:text-xl"></p>
+            <p id="currentDate" class="text-lg sm:text-xl"></p>
+            <p id="meetingTime" class="text-lg sm:text-xl"></p>
+          </div>
+          <div class="mt-4 flex justify-center">
+            <button id="joinButton" disabled class="btn">
+              <i class="fas fa-phone mr-2"></i>
+              <span>Join Now</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dialog Box -->
+    <div
+      id="dialogBox"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    >
+      <div class="glass w-[850px] h-[450px] rounded-lg shadow-lg p-6 relative">
+        <!-- Close Button -->
+        <button
+          id="closeDialogButton"
+          class="txt-custom absolute top-4 right-6"
+        >
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+
+        <h2 class="text-2xl font-bold">Terms and Conditions</h2>
+        <div class="overflow-y-auto max-h-72 border p-2 font-medium">
+          <p>
+            <strong>1. Interview Conduct and Guidelines</strong><br>
+            By participating in this video interview, you agree to conduct yourself professionally and respectfully. Please ensure you are in a quiet, well-lit environment with a stable internet connection. Dress code should be business appropriate. Any disruptive behavior, inappropriate language, or violation of professional standards may result in immediate termination of the interview process.
+          </p>
+          <p>
+            <strong>2. Technical Requirements and Data Collection</strong><br>
+            This platform requires access to your camera and microphone to conduct the interview. Your video and audio will be recorded for evaluation purposes and may be reviewed by multiple team members. We collect technical data such as connection quality, device information, and usage analytics to improve our service. All data is handled in accordance with our Privacy Policy and applicable data protection regulations.
+          </p>
+          <p>
+            <strong>3. Privacy and Confidentiality</strong><br>
+            All information shared during this interview, including questions, discussions, and any proprietary company information, is strictly confidential. You agree not to record, screenshot, or share any content from this interview session. Similarly, any personal information you provide will be used solely for recruitment purposes and will be protected according to our data retention policies.
+          </p>
+          <p>
+            <strong>4. Equal Opportunity and Non-Discrimination</strong><br>
+            We are committed to providing equal employment opportunities regardless of race, gender, age, religion, sexual orientation, disability, or any other protected characteristic. If you require any accommodations for this interview process, please contact our HR team in advance. By proceeding, you acknowledge that this interview is part of a fair and unbiased selection process designed to evaluate your qualifications for the position.
+          </p>
+        </div>
+        <div class="flex items-center space-x-2 mt-4">
+          <input
+            type="checkbox"
+            id="acceptTerms"
+            class="form-checkbox h-5 w-5"
+          />
+          <label for="acceptTerms" class="text-sm"
+            >I agree to the terms and conditions</label
+          >
+        </div>
+
+        <div class="mt-4 flex justify-center">
+          <button id="confirmJoinButton" disabled class="btn">
+            <i class="fas fa-phone mr-2"></i>
+            <span>Join Now</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const videoElement = document.getElementById("videoElement");
+      const joinButton = document.getElementById("joinButton");
+      const videoOverlay = document.getElementById("videoOverlay");
+      const userInfo = document.getElementById("userInfo");
+      const mainContainer = document.getElementById("mainContainer");
+      const cameraStatus = document.getElementById("cameraStatus");
+      const micStatus = document.getElementById("micStatus");
+      const internetStatus = document.getElementById("internetStatus");
+
+      const dialogBox = document.getElementById("dialogBox");
+      const acceptTerms = document.getElementById("acceptTerms");
+      const confirmJoinButton = document.getElementById("confirmJoinButton");
+
+      let stream;
+      let cameraEnabled = false;
+      let micEnabled = false;
+      let internetStable = navigator.onLine;
+
+      async function setupMediaStream() {
+        try {
+          videoOverlay.style.opacity = "1";
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true,
+          });
+          videoElement.srcObject = stream;
+          videoElement.muted = true; // Mute the audio playback
+          cameraEnabled = true;
+          micEnabled = true;
+          updateStatusIndicators();
+          videoOverlay.style.opacity = "0";
+        } catch (error) {
+          console.error("Error accessing media devices:", error);
+          updateStatusIndicators();
+        }
+      }
+
+      function updateStatusIndicators() {
+        cameraStatus.innerHTML = `
+                <i class="fas fa-video  ${
+                  cameraEnabled ? "text-green-500 " : "text-red-500"
+                }"></i>
+                <span> ${cameraEnabled ? "Enabled" : "Disabled"}</span>
+            `;
+        micStatus.innerHTML = `
+                <i class="fas fa-microphone ${
+                  micEnabled ? "text-green-500" : "text-red-500"
+                }"></i>
+                <span> ${micEnabled ? "Enabled" : "Disabled"}</span>
+            `;
+        internetStatus.innerHTML = `
+                <i class="fas fa-wifi ${
+                  internetStable ? "text-green-500" : "text-red-500"
+                }"></i>
+                <span> ${internetStable ? "Connected" : "Disconnected"}</span>
+            `;
+        updateJoinButton();
+      }
+
+      function updateJoinButton() {
+        const allConditionsMet = cameraEnabled && micEnabled && internetStable;
+        joinButton.disabled = !allConditionsMet;
+        joinButton.classList.toggle("opacity-50", !allConditionsMet);
+        joinButton.classList.toggle("cursor-not-allowed", !allConditionsMet);
+      }
+
+      function showDialogBox() {
+        dialogBox.classList.remove("hidden");
+      }
+
+      function handleCheckboxChange() {
+        confirmJoinButton.disabled = !acceptTerms.checked;
+      }
+
+      function redirectToNextPage() {
+        if (acceptTerms.checked) {
+          window.location.href = "../interview";
+        }
+      }
+
+      async function fetchUserData() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({
+              name: "Jane Doe",
+              roll: "B54321",
+              jobRole: "UX Designer",
+              meetingTime: "2:00 PM to 3:00 PM",
+            });
+          }, 1000);
+        });
+      }
+
+      async function updateUserInfo() {
+        const userData = await fetchUserData();
+        document.getElementById("userName").textContent = userData.name;
+        document.getElementById(
+          "userRoll"
+        ).textContent = `Roll: ${userData.roll}`;
+        document.getElementById(
+          "userJobRole"
+        ).textContent = `Job Role: ${userData.jobRole}`;
+        document.getElementById(
+          "meetingTime"
+        ).textContent = `Time: ${userData.meetingTime}`;
+
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        document.getElementById(
+          "currentDate"
+        ).textContent = `Date: ${now.toLocaleDateString("en-US", options)}`;
+
+        userInfo.style.opacity = "1";
+      }
+      const closeDialogButton = document.getElementById("closeDialogButton");
+
+      // Close the dialog box
+      closeDialogButton.addEventListener("click", () => {
+        dialogBox.classList.add("hidden");
+      });
+
+      joinButton.addEventListener("click", showDialogBox);
+      acceptTerms.addEventListener("change", handleCheckboxChange);
+      confirmJoinButton.addEventListener("click", redirectToNextPage);
+
+      window.addEventListener("load", async () => {
+        await setupMediaStream();
+        await updateUserInfo();
+        updateStatusIndicators();
+
+        mainContainer.style.opacity = "1";
+        joinButton.style.opacity = "1";
+      });
+
+      window.addEventListener("online", () => {
+        internetStable = true;
+        updateStatusIndicators();
+      });
+
+      window.addEventListener("offline", () => {
+        internetStable = false;
+        updateStatusIndicators();
+      });
+    </script>
+  </body>
+</html>

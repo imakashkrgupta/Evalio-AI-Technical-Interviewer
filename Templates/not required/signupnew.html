@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>SignUp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        background: radial-gradient(circle, rgb(34, 16, 55), rgb(3, 1, 5));
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0;
+        overflow: auto;
+        font-family: "Inter", serif;
+        color: #fff;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .btn {
+        font-weight: 600;
+        cursor: pointer;
+        color: white;
+        display: flex;
+        width: 6.8125rem;
+        height: 2.875rem;
+        padding: 0.125rem 0.9375rem;
+        justify-content: center;
+        align-items: center;
+        gap: 0.625rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.297);
+        background: rgba(98, 42, 154, 0.887);
+        box-shadow: 0px 0px 6px 3px rgba(255, 255, 255, 0.406) inset;
+        backdrop-filter: blur(14px);
+      }
+      .txt-custom {
+        color: #9e29d0;
+      }
+    </style>
+  </head>
+
+  <body class="flex justify-center items-center h-screen p-2 ">
+    <div id="signup-form" 
+    class="glass w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg" 
+    style="box-shadow: 0 0 25px 10px rgba(126, 38, 163, 0.9);">
+
+      <div class="px-6 py-4">
+        <div class="flex justify-center mx-auto">
+          <img
+            class="w-auto h-7 sm:h-8"
+            src="https://merakiui.com/images/logo.svg"
+            alt=""
+          />
+        </div>
+
+        <h3 class="mt-3 text-xl font-bold text-center">Create account</h3>
+
+        <form id="form" method="post">
+          {% csrf_token %}
+          <div class="w-full mt-4">
+            <input
+              name="name"
+              id="name"
+              class="glass block w-full px-4 py-2 mt-2 border-2 border-white rounded-lg"
+              type="text"
+              placeholder="Name"
+              aria-label="Name"
+              required
+            />
+          </div>
+          <div class="w-full mt-4">
+            <input
+              name="phone"
+              id="phone"
+              class="glass block w-full px-4 py-2 mt-2 border-2 border-white rounded-lg"
+              type="tel"
+              placeholder="Phone Number"
+              aria-label="Phone Number"
+              pattern="\d{10}"
+              title="Please enter a 10-digit phone number"
+              required
+            />
+          </div>
+          <div class="w-full mt-4">
+            <input
+              name="email"
+              id="email"
+              class="glass block w-full px-4 py-2 mt-2 border-2 border-white rounded-lg"
+              type="email"
+              placeholder="Email Address"
+              aria-label="Email Address"
+              required
+            />
+          </div>
+
+          <div class="w-full mt-4">
+            <input
+              name="password"
+              id="password"
+              class="glass block w-full px-4 py-2 mt-2 border-2 border-white rounded-lg"
+              type="password"
+              placeholder="Password"
+              aria-label="Password"
+              required
+            />
+          </div>
+
+          <!-- Radio buttons for Interviewer and HR -->
+          <div class="m-3 flex gap-4 items-center">
+            <label class="block font-bold">Role :</label>
+            <div class="flex items-center gap-4">
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="interviewee"
+                  name="role"
+                  value="interviewee"
+                  class="mr-2"
+                  onclick="toggleCompanyField(false)"
+                  required
+                />
+                <label for="interviewee" class="font-semibold"
+                  >Interviewee</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="hr"
+                  name="role"
+                  value="hr"
+                  class="mr-2"
+                  onclick="toggleCompanyField(true)"
+                  required
+                />
+                <label for="hr" class="font-semibold">HR</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Name field, initially hidden -->
+          <div class="w-full mt-4 hidden" id="company-name-field">
+            <input
+              name="company"
+              id="company-name"
+              class="glass block w-full px-4 py-2 mt-2 border-2 border-white rounded-lg"
+              type="text"
+              placeholder="Company Name"
+              aria-label="Company Name"
+            />
+          </div>
+
+          <div class="mt-4 flex justify-center item-center">
+            <button type="submit" class="btn" onclick="showOtpVerification()">
+              <span>Join Now</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="glass flex items-center justify-center py-4 text-center">
+        <span class="text-sm">Already have an account? </span>
+
+        <a
+          href="{%url 'login'%}"
+          class="mx-2 text-sm font-bold text-[#7e26a3] hover:underline"
+          >Login</a
+        >
+      </div>
+    </div>
+
+    <script>
+      function toggleCompanyField(show) {
+        const companyNameField = document.getElementById("company-name-field");
+        if (show) {
+          companyNameField.classList.remove("hidden");
+          companyNameField.querySelector("input").required = true;
+        } else {
+          companyNameField.classList.add("hidden");
+          companyNameField.querySelector("input").required = false;
+        }
+      }
+
+    
+    </script>
+  </body>
+</html>

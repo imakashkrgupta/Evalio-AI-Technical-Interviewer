@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SignUp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="flex justify-center items-center h-screen bg-gray-100 p-2">
+  <div id="signup-form" class="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md">
+    <div class="px-6 py-4">
+      <div class="flex justify-center mx-auto">
+        <img class="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="" />
+      </div>
+
+      <h3 class="mt-3 text-xl font-medium text-center text-gray-600">
+        Create account
+      </h3>
+
+      <form id="form" method="post">
+        {% csrf_token %}
+        <div class="w-full mt-4">
+          <input name="name" id="name"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+            type="text" placeholder="Name" aria-label="Name" required />
+        </div>
+        <div class="w-full mt-4">
+          <input name="phone" id="phone"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+            type="tel" placeholder="Phone Number" aria-label="Phone Number" pattern="\d{10}"
+            title="Please enter a 10-digit phone number" required />
+        </div>
+        <div class="w-full mt-4">
+          <input name="email" id="email"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+            type="email" placeholder="Email Address" aria-label="Email Address" required />
+        </div>
+
+        <div class="w-full mt-4">
+          <input name="password" id="password"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+            type="password" placeholder="Password" aria-label="Password" required />
+        </div>
+
+        <!-- Radio buttons for Interviewer and HR -->
+        <div class="m-3 flex gap-4 items-center ">
+          <label class="block font-bold text-gray-600">Role :</label>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center">
+              <input type="radio" id="interviewee" name="role" value="interviewee" class="mr-2 mt-1"
+                onclick="toggleCompanyField(false)" required />
+              <label for="interviewee" class="text-gray-700 font-semibold">Interviewee</label>
+            </div>
+            <div class="flex items-center">
+              <input type="radio" id="hr" name="role" value="hr" class="mr-2 mt-1" onclick="toggleCompanyField(true)"
+                required />
+              <label for="hr" class="text-gray-700 font-semibold">HR</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Company Name field, initially hidden -->
+        <div class="w-full mt-4 hidden" id="company-name-field">
+          <input name="company" id="company-name"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+            type="text" placeholder="Company Name" aria-label="Company Name" />
+        </div>
+
+        <div class="flex justify-center item-center mt-4">
+          <button type="submit" onclick="showOtpVerification()"
+            class="p-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="flex items-center justify-center py-4 text-center bg-gray-50">
+      <span class="text-sm text-gray-600">Already have an account? </span>
+
+      <a href="{%url 'login'%}" class="mx-2 text-sm font-bold text-blue-500 hover:underline">Login</a>
+    </div>
+  </div>
+
+  <!-- <div id="otp-verification" class="hidden flex flex-col items-center justify-around w-72 bg-white rounded-lg p-5">
+    <div class="title text-xl font-bold">OTP</div>
+    <div class="title">Verification Code</div>
+    <p class="message text-gray-500 text-sm mt-2 text-center">
+      We have sent a verification code to your email ID
+    </p>
+    <div class="inputs m-4 flex gap-2">
+      <input id="input1" type="text" maxlength="1"
+        class="w-8 h-8 text-center border-b border-gray-300 focus:border-royalblue outline-none"
+        oninput="moveToNextInput(this, 'input2')" required />
+      <input id="input2" type="text" maxlength="1"
+        class="w-8 h-8 text-center border-b border-gray-300 focus:border-royalblue outline-none"
+        oninput="moveToNextInput(this, 'input3')" required />
+      <input id="input3" type="text" maxlength="1"
+        class="w-8 h-8 text-center border-b border-gray-300 focus:border-royalblue outline-none"
+        oninput="moveToNextInput(this, 'input4')" required />
+      <input id="input4" type="text" maxlength="1"
+        class="w-8 h-8 text-center border-b border-gray-300 focus:border-royalblue outline-none"
+        oninput="checkOtpInputs()" required />
+    </div>
+    <button id="verify-button"
+      class="px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+      onclick="verifyOtp()">
+      Verify Me
+    </button>
+  </div> -->
+
+  <script>
+    function toggleCompanyField(show) {
+      const companyNameField = document.getElementById("company-name-field");
+      if (show) {
+        companyNameField.classList.remove("hidden");
+        companyNameField.querySelector("input").required = true;
+      } else {
+        companyNameField.classList.add("hidden");
+        companyNameField.querySelector("input").required = false;
+      }
+    }
+
+    // function showOtpVerification() {
+    //   const email = document.getElementById("email").value;
+    //   const password = document.getElementById("password").value;
+    //   const role = document.querySelector('input[name="role"]:checked');
+    //   const phone = document.getElementById("phone").value;
+    //   const companyNameField = document.getElementById("company-name-field");
+    //   const companyName = document.getElementById("company-name").value;
+
+    //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //   const phonePattern = /^\d{10}$/;
+
+    //   if (
+    //     emailPattern.test(email) &&
+    //     phonePattern.test(phone) &&
+    //     password &&
+    //     role &&
+    //     (companyNameField.classList.contains("hidden") || companyName)
+    //   ) {
+    //     document.getElementById("signup-form").classList.add("hidden");
+    //     document
+    //       .getElementById("otp-verification")
+    //       .classList.remove("hidden");
+    //   } else {
+    //     alert("Please fill all details correctly");
+    //   }
+    // }
+
+    // function moveToNextInput(currentInput, nextInputId) {
+    //   if (currentInput.value.length === 1) {
+    //     document.getElementById(nextInputId).focus();
+    //   }
+    // }
+
+    // function checkOtpInputs() {
+    //   const input1 = document.getElementById("input1").value;
+    //   const input2 = document.getElementById("input2").value;
+    //   const input3 = document.getElementById("input3").value;
+    //   const input4 = document.getElementById("input4").value;
+
+    //   if (input1 && input2 && input3 && input4) {
+    //     document.getElementById("verify-button").classList.remove("hidden");
+    //   } else {
+    //     document.getElementById("verify-button").classList.add("hidden");
+    //   }
+    // }
+
+    // function verifyOtp() {
+    //   const input1 = document.getElementById("input1").value;
+    //   const input2 = document.getElementById("input2").value;
+    //   const input3 = document.getElementById("input3").value;
+    //   const input4 = document.getElementById("input4").value;
+
+    //   if (input1 && input2 && input3 && input4) {
+    //     alert("OTP Verified!");
+
+    //     // Reset the form fields
+    //     document.getElementById("form").reset();
+
+    //     // Hide the OTP verification section and show the signup form
+    //     document.getElementById("otp-verification").classList.add("hidden");
+    //     document.getElementById("signup-form").classList.remove("hidden");
+
+    //     // Hide the company name field if it was shown
+    //     toggleCompanyField(false);
+    //   } else {
+    //     alert("Please fill all OTP inputs");
+    //   }
+    // }
+  </script>
+</body>
+
+</html>

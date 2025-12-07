@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInUp {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .animate-scaleIn {
+            animation: scaleIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200 flex items-center justify-center p-4">
+    <div id="formContainer" class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full animate-fadeInUp">
+        <h1 class="text-2xl font-bold text-indigo-600 mb-4 text-center">We Value Your Feedback</h1>
+        <form id="feedbackForm" class="space-y-6">
+            <div>
+                <label for="feedback" class="text-lg font-medium text-gray-700">Your Feedback</label>
+                <textarea id="feedback" placeholder="Tell us what you think..." class="mt-2 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required></textarea>
+            </div>
+            <div>
+                <label class="text-lg font-medium text-gray-700">Rating</label>
+                <div id="ratingContainer" class="flex justify-center space-x-2 mt-2">
+                    <!-- Stars will be dynamically added here -->
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105">
+                Submit Feedback
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formContainer = document.getElementById('formContainer');
+            const feedbackForm = document.getElementById('feedbackForm');
+            const ratingContainer = document.getElementById('ratingContainer');
+            let currentRating = 0;
+
+            // Create star rating
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('button');
+                star.type = 'button';
+                star.className = 'text-3xl text-gray-300 transition-transform duration-200 ease-in-out transform hover:scale-110 focus:outline-none';
+                star.innerHTML = '★';
+                star.setAttribute('data-rating', i);
+                
+                star.addEventListener('click', function() {
+                    currentRating = i;
+                    updateStars();
+                });
+
+                ratingContainer.appendChild(star);
+            }
+
+            function updateStars() {
+                const stars = ratingContainer.children;
+                for (let i = 0; i < stars.length; i++) {
+                    if (i < currentRating) {
+                        stars[i].classList.add('text-yellow-400');
+                        stars[i].classList.remove('text-gray-300');
+                    } else {
+                        stars[i].classList.add('text-gray-300');
+                        stars[i].classList.remove('text-yellow-400');
+                    }
+                }
+            }
+
+            feedbackForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const feedback = document.getElementById('feedback').value;
+                
+                // Here you would typically send the feedback and rating to your server
+                console.log('Feedback:', feedback);
+                console.log('Rating:', currentRating);
+
+                // Show thank you message
+                formContainer.innerHTML = `
+                    <div class="text-center animate-scaleIn">
+                        <h2 class="text-2xl font-bold text-indigo-700 mb-4">Thank You!</h2>
+                        <p class="text-gray-600">We appreciate your feedback. It helps us improve our services.</p>
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
